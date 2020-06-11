@@ -7,6 +7,7 @@ var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
 var bird, slingShot;
+var gameState="attached"
 
 function preload() {
     backgroundImg = loadImage("sprites/bowling.jpg");
@@ -34,11 +35,11 @@ function setup(){
     box8 = new Box(875,200,70,70);
     box9 = new Box(945,200,70,70);
 
-    log2= new Log(840,170,280,PI/2);
+    log2= new Log(840,170,350,PI/2);
 
-    box10=new Box(770,130,70,70);
-    box11= new Box(840,130,70,70);
-    box12=new Box(910,130,70,70);
+    box10=new Box(750,120,70,70);
+    box11= new Box(840,120,70,70);
+    box12=new Box(910,120,70,70);
 
     ball = new Ball(100,100);
 
@@ -51,18 +52,18 @@ function draw(){
     strokeWeight(4);
     ground.display();
 
-    box1.display();
-    box2.display();
-    box3.display();
-    box4.display();
-    box5.display();
-    box6.display();
-    box7.display(); 
-    box8.display();
-    box9.display();
-    box10.display();
-    box11.display();
-    box12.display();
+    box1.appear();
+    box2.appear();
+    box3.appear();
+    box4.appear();
+    box5.appear();
+    box6.appear();
+    box7.appear(); 
+    box8.appear();
+    box9.appear();
+    box10.appear();
+    box11.appear();
+    box12.appear();
 
 
     ball.display();
@@ -73,9 +74,20 @@ function draw(){
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(ball.body,{x:mouseX,y:mouseY});
+    if(gameState!=="launched"){
+        Matter.Body.setPosition(ball.body,{x:mouseX,y:mouseY});
+    }
+    
 }
 
 function mouseReleased(){
-    chain.fly()
+    chain.fly();
+    gameState="launched"
+}
+
+function keyPressed(){
+    if (keyCode===32){
+       // chain.attach(ball.body);        
+    }
+
 }
